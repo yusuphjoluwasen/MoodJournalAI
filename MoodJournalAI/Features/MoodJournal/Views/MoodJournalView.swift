@@ -135,6 +135,8 @@ struct MoodJournalView: View {
                         voiceRecorderButton
                             .padding(10)
                     }
+                    .accessibilityLabel("Journal entry")
+                    .accessibilityHint("Write or dictate how you're feeling today.")
 
                 if viewModel.draft.isInputEmpty {
                     Text(viewModel.isRecordingVoiceEntry ? "Listening..." : "Write or dictate how you're feeling today...")
@@ -150,6 +152,7 @@ struct MoodJournalView: View {
                 Label("Recording in progress", systemImage: "waveform")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(Color(red: 0.74, green: 0.27, blue: 0.27))
+                    .accessibilityElement(children: .combine)
             }
         }
         .padding(18)
@@ -242,6 +245,7 @@ struct MoodJournalView: View {
         )
         .foregroundStyle(.white)
         .disabled(!viewModel.canAnalyze)
+        .accessibilityHint("Analyzes your entry and suggests moods.")
     }
 
     private var suggestionSection: some View {

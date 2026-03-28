@@ -12,7 +12,8 @@ struct PrivacySecurityView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
                 Text("Privacy & Security")
-                    .font(.system(size: 38, weight: .bold, design: .rounded))
+                    .font(.largeTitle.weight(.bold))
+                    .fontDesign(.rounded)
                     .foregroundStyle(.white)
 
                 VStack(alignment: .leading, spacing: 6) {

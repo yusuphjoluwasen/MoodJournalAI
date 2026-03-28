@@ -25,14 +25,14 @@ struct SelfCareTipsView: View {
                     .frame(maxWidth: .infinity, minHeight: 320, alignment: .topLeading)
                 } else if let tip = viewModel.tip {
                     Text(tip.title)
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                        .lineLimit(2)
-                        .minimumScaleFactor(0.85)
+                        .font(.title3.weight(.bold))
+                        .fontDesign(.rounded)
+                        .fixedSize(horizontal: false, vertical: true)
                     Text(tip.tip)
-                        .font(.system(size: 22, weight: .bold, design: .rounded))
+                        .font(.title2.weight(.bold))
+                        .fontDesign(.rounded)
                         .lineSpacing(3)
-                        .lineLimit(7)
-                        .minimumScaleFactor(0.8)
+                        .fixedSize(horizontal: false, vertical: true)
                 } else if let errorState = viewModel.errorState {
                     VStack(alignment: .leading, spacing: 12) {
                         Label(errorState.title, systemImage: "exclamationmark.bubble.fill")
@@ -64,6 +64,7 @@ struct SelfCareTipsView: View {
                 RoundedRectangle(cornerRadius: 32, style: .continuous)
                     .stroke(Color.black.opacity(0.06), lineWidth: 1)
             )
+            .accessibilityElement(children: .combine)
 
             Button {
                 viewModel.refresh()
@@ -86,6 +87,7 @@ struct SelfCareTipsView: View {
             }
             .buttonStyle(.plain)
             .disabled(viewModel.isLoading)
+            .accessibilityHint("Loads another self-care suggestion.")
 
             Spacer()
         }

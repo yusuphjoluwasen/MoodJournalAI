@@ -194,6 +194,7 @@ struct MoodJournalSettingsView: View {
             )
         }
         .buttonStyle(.plain)
+        .accessibilityHint("Opens details about privacy and security in the app.")
     }
 
 }

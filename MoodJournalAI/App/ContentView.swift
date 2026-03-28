@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import OSLog
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
@@ -111,7 +112,8 @@ struct ContentView: View {
                 isLocked = false
                 privacyLockFeedback = ""
             } catch {
-                privacyLockFeedback = error.localizedDescription
+                MoodJournalErrorLogger.app.error("Unlock failed: \(String(describing: error), privacy: .public)")
+                privacyLockFeedback = MoodJournalUserErrorMapper.privacyMessage(for: error)
             }
         }
     }
@@ -123,7 +125,8 @@ struct ContentView: View {
                 try await privacyAuthenticator.authenticate(reason: "Enable privacy lock for your Mood Journal.")
                 store.setPrivacyLockEnabled(true)
             } catch {
-                return error.localizedDescription
+                MoodJournalErrorLogger.app.error("Onboarding privacy enable failed: \(String(describing: error), privacy: .public)")
+                return MoodJournalUserErrorMapper.privacyMessage(for: error)
             }
         } else {
             store.setPrivacyLockEnabled(false)

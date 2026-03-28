@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import OSLog
 
 @MainActor
 @Observable
@@ -20,11 +21,20 @@ final class MoodJournalViewModel {
     private let store: MoodJournalStoreProviding
     private let analyzer: MoodJournalAnalyzing
     private let voiceJournalTranscriber: VoiceJournalTranscribing
+    private var feedbackDismissTask: Task<Void, Never>?
+
+    convenience init(store: MoodJournalStoreProviding) {
+        self.init(
+            store: store,
+            analyzer: MoodJournalAnalyzer(),
+            voiceJournalTranscriber: VoiceJournalTranscriber()
+        )
+    }
 
     init(
         store: MoodJournalStoreProviding,
-        analyzer: MoodJournalAnalyzing = MoodJournalAnalyzer(),
-        voiceJournalTranscriber: VoiceJournalTranscribing = VoiceJournalTranscriber()
+        analyzer: MoodJournalAnalyzing,
+        voiceJournalTranscriber: VoiceJournalTranscribing
     ) {
         self.store = store
         self.analyzer = analyzer
@@ -70,7 +80,8 @@ final class MoodJournalViewModel {
             draft.applyAnalysis(analysis)
             await animateSuggestions(analysis.suggestedEmotions)
         } catch {
-            draft.feedbackMessage = error.localizedDescription
+            MoodJournalErrorLogger.journal.error("Journal analysis failed: \(String(describing: error), privacy: .public)")
+            draft.feedbackMessage = MoodJournalUserErrorMapper.journalMessage(for: error)
         }
     }
 
@@ -90,6 +101,7 @@ final class MoodJournalViewModel {
             supportSuggestion: draft.supportSuggestion
         )
         draft.markSaved()
+        scheduleFeedbackDismissal()
     }
 
     func toggleVoiceEntry() async {
@@ -127,6 +139,15 @@ final class MoodJournalViewModel {
         for emotion in emotions {
             draft.revealedEmotions.append(emotion)
             try? await Task.sleep(for: .milliseconds(110))
+        }
+    }
+
+    private func scheduleFeedbackDismissal() {
+        feedbackDismissTask?.cancel()
+        feedbackDismissTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(2.5))
+            guard !Task.isCancelled else { return }
+            self?.draft.feedbackMessage = ""
         }
     }
 }

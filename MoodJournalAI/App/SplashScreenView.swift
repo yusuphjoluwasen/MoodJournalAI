@@ -28,6 +28,7 @@ struct SplashScreenView: View {
                 .fill(Color.white.opacity(showGlow ? 0.18 : 0.08))
                 .frame(width: showGlow ? 280 : 210, height: showGlow ? 280 : 210)
                 .blur(radius: 20)
+                .accessibilityHidden(true)
 
             VStack(spacing: 20) {
                 ZStack {
@@ -40,14 +41,17 @@ struct SplashScreenView: View {
                         )
 
                     Image(systemName: "heart.text.square.fill")
-                        .font(.system(size: 44, weight: .bold))
+                        .font(.largeTitle.weight(.bold))
                         .foregroundStyle(.white)
+                        .accessibilityHidden(true)
                 }
                 .scaleEffect(isExpanded ? 1.0 : 0.82)
+                .accessibilityHidden(true)
 
                 VStack(spacing: 8) {
                     Text("Mood Journal")
-                        .font(.system(size: 34, weight: .bold, design: .rounded))
+                        .font(.largeTitle.weight(.bold))
+                        .fontDesign(.rounded)
                         .foregroundStyle(.white)
 
                     Text("Reflect privately. Understand patterns. Stay grounded.")
@@ -58,6 +62,8 @@ struct SplashScreenView: View {
                 }
             }
             .padding(24)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Mood Journal. Reflect privately. Understand patterns. Stay grounded.")
         }
         .onAppear {
             withAnimation(.spring(duration: 0.9, bounce: 0.3)) {

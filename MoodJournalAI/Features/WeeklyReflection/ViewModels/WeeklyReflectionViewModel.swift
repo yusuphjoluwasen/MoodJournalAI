@@ -19,9 +19,16 @@ final class WeeklyReflectionViewModel {
     private let store: MoodJournalStoreProviding
     private let analyzer: MoodJournalAnalyzing
 
+    convenience init(store: MoodJournalStoreProviding) {
+        self.init(
+            store: store,
+            analyzer: MoodJournalAnalyzer()
+        )
+    }
+
     init(
         store: MoodJournalStoreProviding,
-        analyzer: MoodJournalAnalyzing = MoodJournalAnalyzer()
+        analyzer: MoodJournalAnalyzing
     ) {
         self.store = store
         self.analyzer = analyzer

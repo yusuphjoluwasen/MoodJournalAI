@@ -54,12 +54,14 @@ struct MoodJournalOnboardingView: View {
                 .frame(width: animateOrb ? 320 : 250, height: animateOrb ? 320 : 250)
                 .blur(radius: 28)
                 .offset(x: 110, y: -260)
+                .accessibilityHidden(true)
 
             Circle()
                 .fill(Color.white.opacity(0.08))
                 .frame(width: animateOrb ? 220 : 170, height: animateOrb ? 220 : 170)
                 .blur(radius: 18)
                 .offset(x: -120, y: 280)
+                .accessibilityHidden(true)
 
             VStack(spacing: 24) {
                 Spacer(minLength: 12)
@@ -116,27 +118,27 @@ struct MoodJournalOnboardingView: View {
                         )
 
                     Image(systemName: step.symbol)
-                        .font(.system(size: 34, weight: .bold))
+                        .font(.largeTitle.weight(.bold))
                         .foregroundStyle(.white)
+                        .accessibilityHidden(true)
                 }
+                .accessibilityHidden(true)
 
                 VStack(alignment: .leading, spacing: 10) {
                     Text(step.title)
-                        .font(.system(size: 26, weight: .bold, design: .rounded))
-                        .lineLimit(2)
-                        .minimumScaleFactor(0.8)
+                        .font(.title.weight(.bold))
+                        .fontDesign(.rounded)
+                        .fixedSize(horizontal: false, vertical: true)
                         .foregroundStyle(.white)
 
                     Text(step.headline)
                         .font(.headline.weight(.semibold))
-                        .lineLimit(3)
-                        .minimumScaleFactor(0.82)
+                        .fixedSize(horizontal: false, vertical: true)
                         .foregroundStyle(.white.opacity(0.94))
 
                     Text(step.detail)
                         .font(.footnote)
-                        .lineLimit(3)
-                        .minimumScaleFactor(0.84)
+                        .fixedSize(horizontal: false, vertical: true)
                         .foregroundStyle(.white.opacity(0.78))
                 }
 
@@ -161,6 +163,7 @@ struct MoodJournalOnboardingView: View {
                 .stroke(Color.white.opacity(0.10), lineWidth: 1)
         )
         .shadow(color: .black.opacity(0.18), radius: 26, y: 16)
+        .accessibilityElement(children: .contain)
     }
 
     private func featureHighlights(colors: [Color]) -> some View {
@@ -170,6 +173,7 @@ struct MoodJournalOnboardingView: View {
         }
         .padding(14)
         .background(Color.white.opacity(0.10), in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .accessibilityElement(children: .contain)
     }
 
     private var privacyChoiceCard: some View {
@@ -178,13 +182,11 @@ struct MoodJournalOnboardingView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Enable Face ID / Passcode lock")
                         .font(.subheadline.weight(.semibold))
-                        .lineLimit(2)
-                        .minimumScaleFactor(0.84)
+                        .fixedSize(horizontal: false, vertical: true)
                         .foregroundStyle(.white)
                     Text("Lock the journal when you come back to the app.")
                         .font(.footnote)
-                        .lineLimit(2)
-                        .minimumScaleFactor(0.84)
+                        .fixedSize(horizontal: false, vertical: true)
                         .foregroundStyle(.white.opacity(0.78))
                 }
             }
@@ -195,11 +197,13 @@ struct MoodJournalOnboardingView: View {
         }
         .padding(14)
         .background(Color.white.opacity(0.10), in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .accessibilityElement(children: .contain)
     }
 
     private func privacyPill(symbol: String, text: String) -> some View {
         HStack(spacing: 8) {
             Image(systemName: symbol)
+                .accessibilityHidden(true)
             Text(text)
         }
         .font(.footnote.weight(.semibold))
@@ -216,6 +220,7 @@ struct MoodJournalOnboardingView: View {
                 .foregroundStyle(.white)
                 .frame(width: 36, height: 36)
                 .background(Color.white.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
@@ -223,11 +228,11 @@ struct MoodJournalOnboardingView: View {
                     .foregroundStyle(.white)
                 Text(detail)
                     .font(.footnote)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.84)
+                    .fixedSize(horizontal: false, vertical: true)
                     .foregroundStyle(.white.opacity(0.76))
             }
         }
+        .accessibilityElement(children: .combine)
     }
 
     private var actionRow: some View {

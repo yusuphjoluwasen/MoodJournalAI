@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import OSLog
 
 @MainActor
 @Observable
@@ -18,10 +19,18 @@ final class MoodJournalSettingsViewModel {
     private let reminderScheduler: MoodJournalReminderScheduling
     private let privacyAuthenticator: MoodJournalPrivacyAuthenticating
 
+    convenience init(store: MoodJournalStoreProviding) {
+        self.init(
+            store: store,
+            reminderScheduler: MoodJournalReminderScheduler(),
+            privacyAuthenticator: MoodJournalPrivacyAuthenticator()
+        )
+    }
+
     init(
         store: MoodJournalStoreProviding,
-        reminderScheduler: MoodJournalReminderScheduling = MoodJournalReminderScheduler(),
-        privacyAuthenticator: MoodJournalPrivacyAuthenticating = MoodJournalPrivacyAuthenticator()
+        reminderScheduler: MoodJournalReminderScheduling,
+        privacyAuthenticator: MoodJournalPrivacyAuthenticating
     ) {
         self.store = store
         self.reminderScheduler = reminderScheduler
@@ -48,7 +57,8 @@ final class MoodJournalSettingsViewModel {
                 reminderFeedback = "Daily reminder scheduled for \(store.reminderTime.formatted(date: .omitted, time: .shortened))."
             } catch {
                 store.setReminderEnabled(false)
-                reminderFeedback = error.localizedDescription
+                MoodJournalErrorLogger.settings.error("Reminder toggle failed: \(String(describing: error), privacy: .public)")
+                reminderFeedback = MoodJournalUserErrorMapper.reminderMessage(for: error)
             }
         } else {
             reminderScheduler.cancelDailyReminder()
@@ -67,7 +77,8 @@ final class MoodJournalSettingsViewModel {
             reminderFeedback = "Reminder updated to \(newDate.formatted(date: .omitted, time: .shortened))."
         } catch {
             store.setReminderEnabled(false)
-            reminderFeedback = error.localizedDescription
+            MoodJournalErrorLogger.settings.error("Reminder time update failed: \(String(describing: error), privacy: .public)")
+            reminderFeedback = MoodJournalUserErrorMapper.reminderMessage(for: error)
         }
     }
 
@@ -79,7 +90,8 @@ final class MoodJournalSettingsViewModel {
                 privacyLockFeedback = "Privacy lock enabled."
             } catch {
                 store.setPrivacyLockEnabled(false)
-                privacyLockFeedback = error.localizedDescription
+                MoodJournalErrorLogger.settings.error("Privacy toggle failed: \(String(describing: error), privacy: .public)")
+                privacyLockFeedback = MoodJournalUserErrorMapper.privacyMessage(for: error)
             }
         } else {
             store.setPrivacyLockEnabled(false)

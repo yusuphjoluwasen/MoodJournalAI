@@ -7,9 +7,9 @@
 
 import Foundation
 import Testing
-@testable import AppleIntelligenceForMyTutorial
+@testable import MoodJournal
 
-struct AppleIntelligenceForMyTutorialTests {
+struct MoodJournalTests {
     @MainActor
     @Test
     func filterEntriesMatchesSearchAndMoodCaseInsensitively() {
@@ -129,13 +129,13 @@ struct AppleIntelligenceForMyTutorialTests {
     }
 }
 
-private let gregorianCalendar: Calendar = {
+let gregorianCalendar: Calendar = {
     var calendar = Calendar(identifier: .gregorian)
     calendar.timeZone = TimeZone(secondsFromGMT: 0)!
     return calendar
 }()
 
-private func makeDate(
+func makeDate(
     year: Int,
     month: Int,
     day: Int,
@@ -154,7 +154,7 @@ private func makeDate(
     return components.date!
 }
 
-private func makeEntry(
+func makeEntry(
     text: String,
     createdAt: Date,
     suggestedEmotions: [String] = ["Calm"],

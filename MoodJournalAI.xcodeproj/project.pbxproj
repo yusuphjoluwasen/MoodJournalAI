@@ -24,15 +24,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0999E5C32F669B230042183E /* MoodJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoodJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0999E5D02F669B250042183E /* MoodJournalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoodJournalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0999E5DA2F669B250042183E /* MoodJournalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoodJournalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0999E5C32F669B230042183E /* MoodJournalAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoodJournalAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0999E5D02F669B250042183E /* MoodJournalAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoodJournalAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0999E5DA2F669B250042183E /* MoodJournalAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoodJournalAIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0999E5C52F669B230042183E /* MoodJournal */ = {
+		0999E5C52F669B230042183E /* MoodJournalAI */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MoodJournal;
+			path = MoodJournalAI;
 			sourceTree = "<group>";
 		};
 		0999E5D32F669B250042183E /* MoodJournalTests */ = {
@@ -70,7 +70,7 @@
 		0999E5BA2F669B230042183E = {
 			isa = PBXGroup;
 			children = (
-				0999E5C52F669B230042183E /* MoodJournal */,
+				0999E5C52F669B230042183E /* MoodJournalAI */,
 				0999E5D32F669B250042183E /* MoodJournalTests */,
 				0999E5C42F669B230042183E /* Products */,
 			);
@@ -79,9 +79,9 @@
 		0999E5C42F669B230042183E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0999E5C32F669B230042183E /* MoodJournal.app */,
-				0999E5D02F669B250042183E /* MoodJournalTests.xctest */,
-				0999E5DA2F669B250042183E /* MoodJournalUITests.xctest */,
+				0999E5C32F669B230042183E /* MoodJournalAI.app */,
+				0999E5D02F669B250042183E /* MoodJournalAITests.xctest */,
+				0999E5DA2F669B250042183E /* MoodJournalAIUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,9 +89,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0999E5C22F669B230042183E /* MoodJournal */ = {
+		0999E5C22F669B230042183E /* MoodJournalAI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0999E5E42F669B250042183E /* Build configuration list for PBXNativeTarget "MoodJournal" */;
+			buildConfigurationList = 0999E5E42F669B250042183E /* Build configuration list for PBXNativeTarget "MoodJournalAI" */;
 			buildPhases = (
 				0999E5BF2F669B230042183E /* Sources */,
 				0999E5C02F669B230042183E /* Frameworks */,
@@ -102,18 +102,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				0999E5C52F669B230042183E /* MoodJournal */,
+				0999E5C52F669B230042183E /* MoodJournalAI */,
 			);
-			name = MoodJournal;
+			name = MoodJournalAI;
 			packageProductDependencies = (
 			);
 			productName = AppleIntelligenceForMyTutorial;
-			productReference = 0999E5C32F669B230042183E /* MoodJournal.app */;
+			productReference = 0999E5C32F669B230042183E /* MoodJournalAI.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0999E5CF2F669B250042183E /* MoodJournalTests */ = {
+		0999E5CF2F669B250042183E /* MoodJournalAITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0999E5E72F669B250042183E /* Build configuration list for PBXNativeTarget "MoodJournalTests" */;
+			buildConfigurationList = 0999E5E72F669B250042183E /* Build configuration list for PBXNativeTarget "MoodJournalAITests" */;
 			buildPhases = (
 				0999E5CC2F669B250042183E /* Sources */,
 				0999E5CD2F669B250042183E /* Frameworks */,
@@ -127,16 +127,16 @@
 			fileSystemSynchronizedGroups = (
 				0999E5D32F669B250042183E /* MoodJournalTests */,
 			);
-			name = MoodJournalTests;
+			name = MoodJournalAITests;
 			packageProductDependencies = (
 			);
 			productName = AppleIntelligenceForMyTutorialTests;
-			productReference = 0999E5D02F669B250042183E /* MoodJournalTests.xctest */;
+			productReference = 0999E5D02F669B250042183E /* MoodJournalAITests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		0999E5D92F669B250042183E /* MoodJournalUITests */ = {
+		0999E5D92F669B250042183E /* MoodJournalAIUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0999E5EA2F669B250042183E /* Build configuration list for PBXNativeTarget "MoodJournalUITests" */;
+			buildConfigurationList = 0999E5EA2F669B250042183E /* Build configuration list for PBXNativeTarget "MoodJournalAIUITests" */;
 			buildPhases = (
 				0999E5D62F669B250042183E /* Sources */,
 				0999E5D72F669B250042183E /* Frameworks */,
@@ -147,11 +147,11 @@
 			dependencies = (
 				0999E5DC2F669B250042183E /* PBXTargetDependency */,
 			);
-			name = MoodJournalUITests;
+			name = MoodJournalAIUITests;
 			packageProductDependencies = (
 			);
 			productName = AppleIntelligenceForMyTutorialUITests;
-			productReference = 0999E5DA2F669B250042183E /* MoodJournalUITests.xctest */;
+			productReference = 0999E5DA2F669B250042183E /* MoodJournalAIUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -177,7 +177,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0999E5BE2F669B230042183E /* Build configuration list for PBXProject "MoodJournal" */;
+			buildConfigurationList = 0999E5BE2F669B230042183E /* Build configuration list for PBXProject "MoodJournalAI" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -191,9 +191,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0999E5C22F669B230042183E /* MoodJournal */,
-				0999E5CF2F669B250042183E /* MoodJournalTests */,
-				0999E5D92F669B250042183E /* MoodJournalUITests */,
+				0999E5C22F669B230042183E /* MoodJournalAI */,
+				0999E5CF2F669B250042183E /* MoodJournalAITests */,
+				0999E5D92F669B250042183E /* MoodJournalAIUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -249,12 +249,12 @@
 /* Begin PBXTargetDependency section */
 		0999E5D22F669B250042183E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0999E5C22F669B230042183E /* MoodJournal */;
+			target = 0999E5C22F669B230042183E /* MoodJournalAI */;
 			targetProxy = 0999E5D12F669B250042183E /* PBXContainerItemProxy */;
 		};
 		0999E5DC2F669B250042183E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0999E5C22F669B230042183E /* MoodJournal */;
+			target = 0999E5C22F669B230042183E /* MoodJournalAI */;
 			targetProxy = 0999E5DB2F669B250042183E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -313,6 +313,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -371,6 +372,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -392,6 +394,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = MoodJournalAI;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Use your microphone to turn spoken reflections into journal text.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Use speech recognition to transcribe your voice into a journal entry.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -428,6 +431,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = MoodJournalAI;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Use your microphone to turn spoken reflections into journal text.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Use speech recognition to transcribe your voice into a journal entry.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -471,7 +475,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoodJournal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoodJournal";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoodJournalAI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoodJournalAI";
 			};
 			name = Debug;
 		};
@@ -493,7 +497,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoodJournal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoodJournal";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoodJournalAI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoodJournalAI";
 			};
 			name = Release;
 		};
@@ -542,7 +546,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0999E5BE2F669B230042183E /* Build configuration list for PBXProject "MoodJournal" */ = {
+		0999E5BE2F669B230042183E /* Build configuration list for PBXProject "MoodJournalAI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0999E5E22F669B250042183E /* Debug */,
@@ -551,7 +555,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0999E5E42F669B250042183E /* Build configuration list for PBXNativeTarget "MoodJournal" */ = {
+		0999E5E42F669B250042183E /* Build configuration list for PBXNativeTarget "MoodJournalAI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0999E5E52F669B250042183E /* Debug */,
@@ -560,7 +564,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0999E5E72F669B250042183E /* Build configuration list for PBXNativeTarget "MoodJournalTests" */ = {
+		0999E5E72F669B250042183E /* Build configuration list for PBXNativeTarget "MoodJournalAITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0999E5E82F669B250042183E /* Debug */,
@@ -569,7 +573,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0999E5EA2F669B250042183E /* Build configuration list for PBXNativeTarget "MoodJournalUITests" */ = {
+		0999E5EA2F669B250042183E /* Build configuration list for PBXNativeTarget "MoodJournalAIUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0999E5EB2F669B250042183E /* Debug */,

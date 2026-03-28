@@ -78,6 +78,14 @@ struct WeeklyOverviewCard: View {
             ),
             in: RoundedRectangle(cornerRadius: 24, style: .continuous)
         )
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(weeklyOverviewAccessibilityLabel)
+    }
+
+    private var weeklyOverviewAccessibilityLabel: String {
+        let topMoods = overview.topEmotions.map { "\($0.emotion), \($0.count)" }.joined(separator: ", ")
+        let summary = topMoods.isEmpty ? "No moods confirmed yet." : "Most confirmed moods: \(topMoods)."
+        return "This week. Entries: \(overview.entriesCount). Current streak: \(overview.currentStreak). Longest streak: \(overview.longestStreak). \(summary)"
     }
 }
 
@@ -129,6 +137,9 @@ struct EmotionSuggestionChip: View {
         }
         .buttonStyle(.plain)
         .scaleEffect(isSelected ? 1.02 : 1.0)
+        .accessibilityLabel("\(emotion.capitalized) mood")
+        .accessibilityValue(isSelected ? "Selected" : "Not selected")
+        .accessibilityHint("Double tap to \(isSelected ? "remove" : "select") this mood.")
     }
 }
 
@@ -159,6 +170,9 @@ struct MoodFilterChip: View {
             .foregroundStyle(isSelected ? .white : .primary)
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(title == "All" ? "All moods" : "\(title) mood filter")
+        .accessibilityValue(isSelected ? "Selected" : "Not selected")
+        .accessibilityHint("Double tap to \(isSelected ? "clear" : "apply") this filter.")
     }
 }
 
@@ -180,6 +194,7 @@ struct ReflectionCard: View {
             RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .stroke(Color.black.opacity(0.06), lineWidth: 1)
         )
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -211,6 +226,7 @@ struct SupportSuggestionCard: View {
             RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .stroke(Color.black.opacity(0.06), lineWidth: 1)
         )
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -264,6 +280,7 @@ struct PrivacyLockCard: View {
             ),
             in: RoundedRectangle(cornerRadius: 28, style: .continuous)
         )
+        .accessibilityElement(children: .contain)
     }
 }
 
@@ -322,5 +339,13 @@ struct JournalEntryCard: View {
             RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .stroke(Color.black.opacity(0.06), lineWidth: 1)
         )
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(journalEntryAccessibilityLabel)
+        .accessibilityHint("Opens entry details.")
+    }
+
+    private var journalEntryAccessibilityLabel: String {
+        let moods = entry.selectedEmotions.isEmpty ? "No moods saved" : entry.selectedEmotions.joined(separator: ", ")
+        return "\(entry.createdAt.formatted(date: .abbreviated, time: .shortened)). \(entry.text). Moods: \(moods)."
     }
 }

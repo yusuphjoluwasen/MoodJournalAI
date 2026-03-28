@@ -11,31 +11,31 @@ import FoundationModels
 enum MoodJournalModelErrorMapper {
     static func message(for error: LanguageModelSession.GenerationError) -> String {
         switch error {
-        case .assetsUnavailable(let context):
-            return "Model assets are unavailable right now. \(context.debugDescription)"
-        case .decodingFailure(let context):
-            return "The model returned something the app could not read. \(context.debugDescription)"
-        case .exceededContextWindowSize(let context):
-            return "That request was too large for the model to process. \(context.debugDescription)"
-        case .guardrailViolation(let context):
-            return "The request could not be completed because of a built-in safety rule. \(context.debugDescription)"
-        case .rateLimited(let context):
-            return "The model is busy right now. Please try again in a moment. \(context.debugDescription)"
-        case .refusal(_, let context):
-            return "The model declined that request. \(context.debugDescription)"
-        case .concurrentRequests(let context):
-            return "Another model request is already running. \(context.debugDescription)"
-        case .unsupportedGuide(let context):
-            return "This request uses a model feature that is not supported here. \(context.debugDescription)"
-        case .unsupportedLanguageOrLocale(let context):
-            return "This language or region is not supported for the current model request. \(context.debugDescription)"
+        case .assetsUnavailable:
+            return "AI features are not available right now on this device."
+        case .decodingFailure:
+            return "The app couldn’t understand the response. Please try again."
+        case .exceededContextWindowSize:
+            return "That entry is too long to analyze right now. Try shortening it and try again."
+        case .guardrailViolation:
+            return "That request couldn’t be completed. Try adjusting your wording and trying again."
+        case .rateLimited:
+            return "AI is busy right now. Please try again in a moment."
+        case .refusal:
+            return "That request couldn’t be completed. Please try again."
+        case .concurrentRequests:
+            return "Another AI request is already running. Please wait a moment and try again."
+        case .unsupportedGuide:
+            return "That AI feature isn’t available right now."
+        case .unsupportedLanguageOrLocale:
+            return "Your current language or region isn’t supported for this AI feature yet."
         @unknown default:
-            return "The model hit an unexpected error. \(error.failureReason ?? error.localizedDescription)"
+            return "Something went wrong with AI generation. Please try again."
         }
     }
 
     static func message(for error: LanguageModelSession.ToolCallError) -> String {
-        "A model tool call failed. \(error.errorDescription ?? error.localizedDescription)"
+        "Something went wrong while preparing the AI response. Please try again."
     }
 
     static func message(for error: Error) -> String {
@@ -47,6 +47,6 @@ enum MoodJournalModelErrorMapper {
             return message(for: toolCallError)
         }
 
-        return error.localizedDescription
+        return "Something went wrong. Please try again."
     }
 }

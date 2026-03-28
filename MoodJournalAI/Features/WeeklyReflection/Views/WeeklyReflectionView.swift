@@ -123,6 +123,7 @@ struct WeeklyReflectionView: View {
             }
             .buttonStyle(.plain)
             .disabled(viewModel.isGenerating)
+            .accessibilityHint("Generates a fresh weekly summary and reflection.")
 
             if viewModel.exportText.isEmpty {
                 Label("Export", systemImage: "square.and.arrow.up")
@@ -159,6 +160,7 @@ struct WeeklyReflectionView: View {
         .frame(maxWidth: .infinity)
         .padding(26)
         .background(Color.white.opacity(0.88), in: RoundedRectangle(cornerRadius: 28, style: .continuous))
+        .accessibilityElement(children: .combine)
     }
 
     private var moodTrendsCard: some View {
@@ -207,6 +209,7 @@ struct WeeklyReflectionView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(22)
         .background(Color.white.opacity(0.88), in: RoundedRectangle(cornerRadius: 28, style: .continuous))
+        .accessibilityElement(children: .combine)
     }
 
     private var emptyCard: some View {
@@ -239,6 +242,7 @@ struct WeeklyReflectionView: View {
             RoundedRectangle(cornerRadius: 28, style: .continuous)
                 .stroke(Color(red: 0.86, green: 0.78, blue: 0.72), lineWidth: 1)
         )
+        .accessibilityElement(children: .combine)
     }
 
     private func reflectionCard(title: String, subtitle: String, text: String, colors: [Color]) -> some View {
@@ -264,6 +268,7 @@ struct WeeklyReflectionView: View {
             ),
             in: RoundedRectangle(cornerRadius: 28, style: .continuous)
         )
+        .accessibilityElement(children: .combine)
     }
 }
 

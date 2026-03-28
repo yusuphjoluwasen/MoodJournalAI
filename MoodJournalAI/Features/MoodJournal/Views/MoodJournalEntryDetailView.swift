@@ -55,6 +55,8 @@ struct MoodJournalEntryDetailView: View {
                 } label: {
                     Image(systemName: "trash")
                 }
+                .accessibilityLabel("Delete entry")
+                .accessibilityHint("Removes this journal entry from history.")
             }
         }
         .alert("Delete Entry?", isPresented: $showDeleteConfirmation) {
@@ -106,6 +108,7 @@ struct MoodJournalEntryDetailView: View {
             RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .stroke(Color.black.opacity(0.06), lineWidth: 1)
         )
+        .accessibilityElement(children: .combine)
     }
 
     private func emotionSection(
@@ -148,6 +151,7 @@ struct MoodJournalEntryDetailView: View {
             RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .stroke(Color.black.opacity(0.06), lineWidth: 1)
         )
+        .accessibilityElement(children: .combine)
     }
 }
 

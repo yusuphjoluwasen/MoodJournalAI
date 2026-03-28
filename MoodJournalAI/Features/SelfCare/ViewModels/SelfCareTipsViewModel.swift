@@ -18,7 +18,11 @@ final class SelfCareTipsViewModel {
 
     private let analyzer: MoodJournalAnalyzing
 
-    init(analyzer: MoodJournalAnalyzing = MoodJournalAnalyzer()) {
+    convenience init() {
+        self.init(analyzer: MoodJournalAnalyzer())
+    }
+
+    init(analyzer: MoodJournalAnalyzing) {
         self.analyzer = analyzer
     }
 

@@ -107,6 +107,7 @@ struct MoodJournalHistoryView: View {
         }
         .buttonStyle(.plain)
         .disabled(!viewModel.hasWeeklyReflection)
+        .accessibilityHint(viewModel.hasWeeklyReflection ? "Opens your weekly reflection." : "Available after you save entries this week.")
     }
 
     private var buttonBackground: AnyShapeStyle {
@@ -146,6 +147,7 @@ struct MoodJournalHistoryView: View {
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
                     .stroke(Color.black.opacity(0.06), lineWidth: 1)
             )
+            .accessibilityLabel("Search journal history")
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
