@@ -19,6 +19,7 @@ struct ContentView: View {
     @State private var privacyLockFeedback = ""
 
     private let privacyAuthenticator = MoodJournalPrivacyAuthenticator()
+    private let analytics: MoodJournalAnalyticsTracking = MoodJournalAnalytics.shared
 
     var body: some View {
         ZStack {
@@ -137,6 +138,11 @@ struct ContentView: View {
             isLocked = false
             privacyLockFeedback = ""
         }
+
+        analytics.track(
+            .onboardingCompleted,
+            parameters: ["privacy_lock_enabled": enablePrivacyLock ? "true" : "false"]
+        )
 
         return nil
     }

@@ -57,6 +57,11 @@ protocol MoodJournalPrivacyAuthenticating {
     func authenticate(reason: String) async throws
 }
 
+protocol MoodJournalAnalyticsTracking: AnyObject {
+    func initialize()
+    func track(_ signal: MoodJournalAnalyticsSignal, parameters: [String: String])
+}
+
 extension MoodJournalStore: MoodJournalStoreProviding {}
 extension MoodJournalAnalyzer: MoodJournalAnalyzing {}
 extension VoiceJournalTranscriber: VoiceJournalTranscribing {}

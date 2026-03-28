@@ -21,24 +21,28 @@ final class MoodJournalViewModel {
     private let store: MoodJournalStoreProviding
     private let analyzer: MoodJournalAnalyzing
     private let voiceJournalTranscriber: VoiceJournalTranscribing
+    private let analytics: MoodJournalAnalyticsTracking
     private var feedbackDismissTask: Task<Void, Never>?
 
     convenience init(store: MoodJournalStoreProviding) {
         self.init(
             store: store,
             analyzer: MoodJournalAnalyzer(),
-            voiceJournalTranscriber: VoiceJournalTranscriber()
+            voiceJournalTranscriber: VoiceJournalTranscriber(),
+            analytics: MoodJournalAnalytics.shared
         )
     }
 
     init(
         store: MoodJournalStoreProviding,
         analyzer: MoodJournalAnalyzing,
-        voiceJournalTranscriber: VoiceJournalTranscribing
+        voiceJournalTranscriber: VoiceJournalTranscribing,
+        analytics: MoodJournalAnalyticsTracking? = nil
     ) {
         self.store = store
         self.analyzer = analyzer
         self.voiceJournalTranscriber = voiceJournalTranscriber
+        self.analytics = analytics ?? MoodJournalAnalytics.shared
     }
 
     var weeklyOverview: WeeklyMoodOverview {
@@ -73,14 +77,20 @@ final class MoodJournalViewModel {
         stopVoiceEntryIfNeeded()
         isAnalyzing = true
         draft.prepareForAnalysis()
+        analytics.track(.journalAnalyzeRequested, parameters: [:])
         defer { isAnalyzing = false }
 
         do {
             let analysis = try await analyzer.analyze(text: draft.trimmedInput)
             draft.applyAnalysis(analysis)
+            analytics.track(
+                .journalAnalyzeSucceeded,
+                parameters: ["suggested_emotion_count": String(analysis.suggestedEmotions.count)]
+            )
             await animateSuggestions(analysis.suggestedEmotions)
         } catch {
             MoodJournalErrorLogger.journal.error("Journal analysis failed: \(String(describing: error), privacy: .public)")
+            analytics.track(.journalAnalyzeFailed, parameters: [:])
             draft.feedbackMessage = MoodJournalUserErrorMapper.journalMessage(for: error)
         }
     }
@@ -100,6 +110,10 @@ final class MoodJournalViewModel {
             reflectionSummary: draft.reflectionSummary,
             supportSuggestion: draft.supportSuggestion
         )
+        analytics.track(
+            .journalEntrySaved,
+            parameters: ["selected_emotion_count": String(draft.selectedEmotions.count)]
+        )
         draft.markSaved()
         scheduleFeedbackDismissal()
     }
@@ -113,6 +127,7 @@ final class MoodJournalViewModel {
         voiceEntryErrorState = nil
 
         do {
+            analytics.track(.voiceEntryStarted, parameters: [:])
             try await voiceJournalTranscriber.startTranscribing(locale: .current) { [weak self] result in
                 guard let self else { return }
 
@@ -120,14 +135,20 @@ final class MoodJournalViewModel {
 
                 switch result {
                 case .success(let transcript):
+                    self.analytics.track(
+                        .voiceEntryCompleted,
+                        parameters: ["transcript_empty": transcript.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "true" : "false"]
+                    )
                     self.draft.appendVoiceTranscript(transcript)
                 case .failure(let error):
+                    self.analytics.track(.voiceEntryFailed, parameters: [:])
                     self.voiceEntryErrorState = VoiceEntryErrorState(error: error)
                 }
             }
 
             isRecordingVoiceEntry = true
         } catch {
+            analytics.track(.voiceEntryFailed, parameters: [:])
             voiceEntryErrorState = VoiceEntryErrorState(error: error)
             isRecordingVoiceEntry = false
         }

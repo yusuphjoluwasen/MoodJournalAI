@@ -1,0 +1,4 @@
+TELEMETRYDECK_APP_ID =
+#include? "Secrets.xcconfig"
+
+INFOPLIST_KEY_TelemetryDeckAppID = $(TELEMETRYDECK_APP_ID)

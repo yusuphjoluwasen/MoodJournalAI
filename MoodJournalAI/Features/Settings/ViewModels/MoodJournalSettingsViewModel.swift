@@ -18,23 +18,27 @@ final class MoodJournalSettingsViewModel {
     private let store: MoodJournalStoreProviding
     private let reminderScheduler: MoodJournalReminderScheduling
     private let privacyAuthenticator: MoodJournalPrivacyAuthenticating
+    private let analytics: MoodJournalAnalyticsTracking
 
     convenience init(store: MoodJournalStoreProviding) {
         self.init(
             store: store,
             reminderScheduler: MoodJournalReminderScheduler(),
-            privacyAuthenticator: MoodJournalPrivacyAuthenticator()
+            privacyAuthenticator: MoodJournalPrivacyAuthenticator(),
+            analytics: MoodJournalAnalytics.shared
         )
     }
 
     init(
         store: MoodJournalStoreProviding,
         reminderScheduler: MoodJournalReminderScheduling,
-        privacyAuthenticator: MoodJournalPrivacyAuthenticating
+        privacyAuthenticator: MoodJournalPrivacyAuthenticating,
+        analytics: MoodJournalAnalyticsTracking? = nil
     ) {
         self.store = store
         self.reminderScheduler = reminderScheduler
         self.privacyAuthenticator = privacyAuthenticator
+        self.analytics = analytics ?? MoodJournalAnalytics.shared
     }
 
     var reminderEnabled: Bool {
@@ -54,15 +58,18 @@ final class MoodJournalSettingsViewModel {
             do {
                 try await reminderScheduler.scheduleDailyReminder(at: store.reminderTime)
                 store.setReminderEnabled(true)
+                analytics.track(.reminderEnabled, parameters: [:])
                 reminderFeedback = "Daily reminder scheduled for \(store.reminderTime.formatted(date: .omitted, time: .shortened))."
             } catch {
                 store.setReminderEnabled(false)
                 MoodJournalErrorLogger.settings.error("Reminder toggle failed: \(String(describing: error), privacy: .public)")
+                analytics.track(.reminderFailed, parameters: [:])
                 reminderFeedback = MoodJournalUserErrorMapper.reminderMessage(for: error)
             }
         } else {
             reminderScheduler.cancelDailyReminder()
             store.setReminderEnabled(false)
+            analytics.track(.reminderDisabled, parameters: [:])
             reminderFeedback = "Daily reminder turned off."
         }
     }
@@ -74,10 +81,12 @@ final class MoodJournalSettingsViewModel {
 
         do {
             try await reminderScheduler.scheduleDailyReminder(at: newDate)
+            analytics.track(.reminderUpdated, parameters: [:])
             reminderFeedback = "Reminder updated to \(newDate.formatted(date: .omitted, time: .shortened))."
         } catch {
             store.setReminderEnabled(false)
             MoodJournalErrorLogger.settings.error("Reminder time update failed: \(String(describing: error), privacy: .public)")
+            analytics.track(.reminderFailed, parameters: [:])
             reminderFeedback = MoodJournalUserErrorMapper.reminderMessage(for: error)
         }
     }
@@ -87,14 +96,17 @@ final class MoodJournalSettingsViewModel {
             do {
                 try await privacyAuthenticator.authenticate(reason: "Unlock Mood Journal to enable privacy lock.")
                 store.setPrivacyLockEnabled(true)
+                analytics.track(.privacyLockEnabled, parameters: [:])
                 privacyLockFeedback = "Privacy lock enabled."
             } catch {
                 store.setPrivacyLockEnabled(false)
                 MoodJournalErrorLogger.settings.error("Privacy toggle failed: \(String(describing: error), privacy: .public)")
+                analytics.track(.privacyLockFailed, parameters: [:])
                 privacyLockFeedback = MoodJournalUserErrorMapper.privacyMessage(for: error)
             }
         } else {
             store.setPrivacyLockEnabled(false)
+            analytics.track(.privacyLockDisabled, parameters: [:])
             privacyLockFeedback = "Privacy lock turned off."
         }
     }

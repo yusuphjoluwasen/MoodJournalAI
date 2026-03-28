@@ -55,3 +55,13 @@ Current accessibility support includes:
 - grouped accessibility for reusable cards and entry rows
 - reduced reliance on hardcoded font sizes
 - semantic system text styles for better Dynamic Type behavior
+
+## Analytics Configuration (TelemetryDeck)
+
+TelemetryDeck is included, but the app ID should not be committed to Git.
+
+1. Copy `Config/Secrets.xcconfig.example` to `Config/Secrets.xcconfig`.
+2. Set `TELEMETRYDECK_APP_ID` in `Config/Secrets.xcconfig`.
+3. Build and run the app.
+
+If no app ID is configured, analytics stays disabled automatically.

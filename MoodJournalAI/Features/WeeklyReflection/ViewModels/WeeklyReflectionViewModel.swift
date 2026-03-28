@@ -18,20 +18,24 @@ final class WeeklyReflectionViewModel {
 
     private let store: MoodJournalStoreProviding
     private let analyzer: MoodJournalAnalyzing
+    private let analytics: MoodJournalAnalyticsTracking
 
     convenience init(store: MoodJournalStoreProviding) {
         self.init(
             store: store,
-            analyzer: MoodJournalAnalyzer()
+            analyzer: MoodJournalAnalyzer(),
+            analytics: MoodJournalAnalytics.shared
         )
     }
 
     init(
         store: MoodJournalStoreProviding,
-        analyzer: MoodJournalAnalyzing
+        analyzer: MoodJournalAnalyzing,
+        analytics: MoodJournalAnalyticsTracking? = nil
     ) {
         self.store = store
         self.analyzer = analyzer
+        self.analytics = analytics ?? MoodJournalAnalytics.shared
     }
 
     var hasWeeklyEntries: Bool {
@@ -53,14 +57,17 @@ final class WeeklyReflectionViewModel {
 
         isGenerating = true
         errorState = nil
+        analytics.track(.weeklyReflectionRequested, parameters: [:])
         defer { isGenerating = false }
 
         do {
             recap = try await analyzer.weeklyRecap(for: store.weeklyEntries)
             insight = try await analyzer.weeklyHealthInsight(for: store.weeklyEntries)
+            analytics.track(.weeklyReflectionGenerated, parameters: [:])
         } catch {
             recap = ""
             insight = ""
+            analytics.track(.weeklyReflectionFailed, parameters: [:])
             errorState = ReflectionErrorState(error: error)
         }
     }

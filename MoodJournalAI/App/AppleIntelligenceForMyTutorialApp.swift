@@ -10,6 +10,10 @@ import SwiftData
 
 @main
 struct AppleIntelligenceForMyTutorialApp: App {
+    init() {
+        MoodJournalAnalytics.shared.initialize()
+    }
+
     private let sharedModelContainer: ModelContainer = {
         let schema = Schema(versionedSchema: MoodJournalSchemaV1.self)
 

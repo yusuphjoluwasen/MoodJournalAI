@@ -17,17 +17,20 @@ final class SelfCareTipsViewModel {
     var refreshID = UUID()
 
     private let analyzer: MoodJournalAnalyzing
+    private let analytics: MoodJournalAnalyticsTracking
 
     convenience init() {
-        self.init(analyzer: MoodJournalAnalyzer())
+        self.init(analyzer: MoodJournalAnalyzer(), analytics: MoodJournalAnalytics.shared)
     }
 
-    init(analyzer: MoodJournalAnalyzing) {
+    init(analyzer: MoodJournalAnalyzing, analytics: MoodJournalAnalyticsTracking? = nil) {
         self.analyzer = analyzer
+        self.analytics = analytics ?? MoodJournalAnalytics.shared
     }
 
     func refresh() {
         guard !isLoading else { return }
+        analytics.track(.selfCareRefreshRequested, parameters: [:])
         refreshID = UUID()
     }
 
@@ -38,8 +41,10 @@ final class SelfCareTipsViewModel {
 
         do {
             tip = try await analyzer.selfCareTip()
+            analytics.track(.selfCareLoaded, parameters: [:])
         } catch {
             tip = nil
+            analytics.track(.selfCareLoadFailed, parameters: [:])
             errorState = SelfCareErrorState(error: error)
         }
     }
