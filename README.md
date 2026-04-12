@@ -29,5 +29,5 @@ Some AI-powered features depend on Apple Intelligence and compatible device supp
 - shared services for reusable cross-feature logic
 - unit-tested view models and business logic
 
-It is available on the App Store if you’d like to try it:
-https://apps.apple.com/us/app/moodjournalai/id6760933748
+It is available on the App Store if you’d like to try it:  
+[Download Mood Journal AI](https://apps.apple.com/us/app/moodjournalai/id6760933748)
