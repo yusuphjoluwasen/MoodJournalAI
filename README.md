@@ -26,7 +26,5 @@ Some AI-powered features depend on Apple Intelligence and compatible device supp
 
 - `MVVM` for screen-level state management
 - feature-based folders for maintainability
-- dependency injection for testability
-- domain-focused models for journaling workflows
 - shared services for reusable cross-feature logic
 - unit-tested view models and business logic
