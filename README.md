@@ -28,3 +28,5 @@ Some AI-powered features depend on Apple Intelligence and compatible device supp
 - feature-based folders for maintainability
 - shared services for reusable cross-feature logic
 - unit-tested view models and business logic
+
+check and download at apostore at https://apps.apple.com/us/app/moodjournalai/id6760933748
